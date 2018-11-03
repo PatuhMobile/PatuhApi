@@ -67,7 +67,7 @@ namespace PatuhService.Controllers
             {
                 using (PatuhEntities db = new PatuhEntities())
                 {
-                    TrArticleReport articleReport = db.TrArticleReports.Where(x => x.Id == trArticleReport.Id).FirstOrDefault();
+                    TrArticleReport articleReport = db.TrArticleReports.Where(x => x.ArticleId == trArticleReport.ArticleId && x.cCreated == trArticleReport.cCreated).FirstOrDefault();
 
                     if (articleReport == null)
                     {
