@@ -57,6 +57,7 @@
           </EntitySet>
           <EntitySet Name="MsUserRole" EntityType="PatuhModel.Store.MsUserRole" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="MsUserRoleAccess" EntityType="PatuhModel.Store.MsUserRoleAccess" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TrArticleReports" EntityType="PatuhModel.Store.TrArticleReports" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TrArticles" EntityType="PatuhModel.Store.TrArticles" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TrComments" EntityType="PatuhModel.Store.TrComments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TrImageAttachments" EntityType="PatuhModel.Store.TrImageAttachments" store:Type="Tables" Schema="dbo" />
@@ -68,6 +69,8 @@
       [TrUserCoupons].[UserID] AS [UserID], 
       [TrUserCoupons].[MsCouponId] AS [MsCouponId], 
       [TrUserCoupons].[CouponCode] AS [CouponCode], 
+      [TrUserCoupons].[IsRedeemed] AS [IsRedeemed], 
+      [TrUserCoupons].[RedeemDate] AS [RedeemDate], 
       [TrUserCoupons].[cStatus] AS [cStatus], 
       [TrUserCoupons].[cCreated] AS [cCreated], 
       [TrUserCoupons].[dCreated] AS [dCreated], 
@@ -283,6 +286,20 @@
           <Property Name="TsMod" Type="datetime" />
           <Property Name="ActiveFlag" Type="char" Nullable="false" MaxLength="1" />
         </EntityType>
+        <EntityType Name="TrArticleReports">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ArticleId" Type="bigint" />
+          <Property Name="ReportCategory" Type="varchar" MaxLength="10" />
+          <Property Name="ReportDesc" Type="varchar" MaxLength="250" />
+          <Property Name="cStatus" Type="varchar" MaxLength="1" />
+          <Property Name="cCreated" Type="varchar" MaxLength="20" />
+          <Property Name="dCreated" Type="datetime" />
+          <Property Name="cLastUpdated" Type="varchar" MaxLength="20" />
+          <Property Name="dLastUpdated" Type="datetime" />
+        </EntityType>
         <EntityType Name="TrArticles">
           <Key>
             <PropertyRef Name="Id" />
@@ -362,6 +379,8 @@
           <Property Name="UserID" Type="varchar" MaxLength="10" />
           <Property Name="MsCouponId" Type="bigint" />
           <Property Name="CouponCode" Type="varchar" MaxLength="100" />
+          <Property Name="IsRedeemed" Type="bit" />
+          <Property Name="RedeemDate" Type="datetime" />
           <Property Name="cStatus" Type="varchar" MaxLength="1" />
           <Property Name="cCreated" Type="varchar" MaxLength="20" />
           <Property Name="dCreated" Type="datetime" />
@@ -526,6 +545,7 @@
           <EntitySet Name="TrPoints" EntityType="PatuhModel.TrPoint" />
           <EntitySet Name="TrUserCoupons" EntityType="PatuhModel.TrUserCoupon" />
           <EntitySet Name="MsCoupons" EntityType="PatuhModel.MsCoupon" />
+          <EntitySet Name="TrArticleReports" EntityType="PatuhModel.TrArticleReport" />
         </EntityContainer>
         <EntityType Name="ErrorLog">
           <Key>
@@ -880,6 +900,8 @@
           <Property Type="DateTime" Name="dCreated" />
           <Property Type="String" Name="cLastUpdated" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="dLastUpdated" />
+          <Property Type="Boolean" Name="IsRedeemed" />
+          <Property Type="DateTime" Name="RedeemDate" />
         </EntityType>
         <EntityType Name="MsCoupon">
           <Key>
@@ -893,6 +915,20 @@
           <Property Type="Int64" Name="PointNeeded" />
           <Property Type="DateTime" Name="ValidUntil" />
           <Property Type="Binary" Name="CouponImage" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="cStatus" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="cCreated" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="dCreated" />
+          <Property Type="String" Name="cLastUpdated" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="dLastUpdated" />
+        </EntityType>
+        <EntityType Name="TrArticleReport">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int64" Name="ArticleId" />
+          <Property Type="String" Name="ReportCategory" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ReportDesc" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="cStatus" MaxLength="1" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="cCreated" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="dCreated" />
@@ -1162,6 +1198,8 @@
           <EntitySetMapping Name="TrUserCoupons">
             <EntityTypeMapping TypeName="PatuhModel.TrUserCoupon">
               <MappingFragment StoreEntitySet="TrUserCoupons">
+                <ScalarProperty Name="RedeemDate" ColumnName="RedeemDate" />
+                <ScalarProperty Name="IsRedeemed" ColumnName="IsRedeemed" />
                 <ScalarProperty Name="dLastUpdated" ColumnName="dLastUpdated" />
                 <ScalarProperty Name="cLastUpdated" ColumnName="cLastUpdated" />
                 <ScalarProperty Name="dCreated" ColumnName="dCreated" />
@@ -1189,6 +1227,21 @@
                 <ScalarProperty Name="Usage" ColumnName="Usage" />
                 <ScalarProperty Name="Benefit" ColumnName="Benefit" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TrArticleReports">
+            <EntityTypeMapping TypeName="PatuhModel.TrArticleReport">
+              <MappingFragment StoreEntitySet="TrArticleReports">
+                <ScalarProperty Name="dLastUpdated" ColumnName="dLastUpdated" />
+                <ScalarProperty Name="cLastUpdated" ColumnName="cLastUpdated" />
+                <ScalarProperty Name="dCreated" ColumnName="dCreated" />
+                <ScalarProperty Name="cCreated" ColumnName="cCreated" />
+                <ScalarProperty Name="cStatus" ColumnName="cStatus" />
+                <ScalarProperty Name="ReportDesc" ColumnName="ReportDesc" />
+                <ScalarProperty Name="ReportCategory" ColumnName="ReportCategory" />
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1263,6 +1316,7 @@
         <EntityTypeShape EntityType="PatuhModel.TrPoint" Width="1.5" PointX="11.375" PointY="3.75" Height="2.7494921875000031" />
         <EntityTypeShape EntityType="PatuhModel.TrUserCoupon" Width="1.5" PointX="7.375" PointY="12.75" Height="2.7494921875000031" />
         <EntityTypeShape EntityType="PatuhModel.MsCoupon" Width="1.5" PointX="11.375" PointY="7.75" Height="3.5186979166666674" />
+        <EntityTypeShape EntityType="PatuhModel.TrArticleReport" Width="1.5" PointX="9.375" PointY="12.75" Height="2.7494921875000031" />
       </Diagram>
     </Diagrams>
   </Designer>

@@ -47,6 +47,7 @@
     <EntitySet Name="TrPoints" EntityType="PatuhModel.TrPoint" />
     <EntitySet Name="TrUserCoupons" EntityType="PatuhModel.TrUserCoupon" />
     <EntitySet Name="MsCoupons" EntityType="PatuhModel.MsCoupon" />
+    <EntitySet Name="TrArticleReports" EntityType="PatuhModel.TrArticleReport" />
   </EntityContainer>
   <EntityType Name="ErrorLog">
     <Key>
@@ -401,6 +402,8 @@
     <Property Type="DateTime" Name="dCreated" />
     <Property Type="String" Name="cLastUpdated" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Type="DateTime" Name="dLastUpdated" />
+    <Property Type="Boolean" Name="IsRedeemed" />
+    <Property Type="DateTime" Name="RedeemDate" />
   </EntityType>
   <EntityType Name="MsCoupon">
     <Key>
@@ -414,6 +417,20 @@
     <Property Type="Int64" Name="PointNeeded" />
     <Property Type="DateTime" Name="ValidUntil" />
     <Property Type="Binary" Name="CouponImage" MaxLength="Max" FixedLength="false" />
+    <Property Type="String" Name="cStatus" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="cCreated" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="dCreated" />
+    <Property Type="String" Name="cLastUpdated" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Type="DateTime" Name="dLastUpdated" />
+  </EntityType>
+  <EntityType Name="TrArticleReport">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int64" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int64" Name="ArticleId" />
+    <Property Type="String" Name="ReportCategory" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ReportDesc" MaxLength="250" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="cStatus" MaxLength="1" FixedLength="false" Unicode="false" />
     <Property Type="String" Name="cCreated" MaxLength="20" FixedLength="false" Unicode="false" />
     <Property Type="DateTime" Name="dCreated" />

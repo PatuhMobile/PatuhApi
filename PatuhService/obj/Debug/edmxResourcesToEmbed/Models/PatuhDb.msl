@@ -258,6 +258,8 @@
     <EntitySetMapping Name="TrUserCoupons">
       <EntityTypeMapping TypeName="PatuhModel.TrUserCoupon">
         <MappingFragment StoreEntitySet="TrUserCoupons">
+          <ScalarProperty Name="RedeemDate" ColumnName="RedeemDate" />
+          <ScalarProperty Name="IsRedeemed" ColumnName="IsRedeemed" />
           <ScalarProperty Name="dLastUpdated" ColumnName="dLastUpdated" />
           <ScalarProperty Name="cLastUpdated" ColumnName="cLastUpdated" />
           <ScalarProperty Name="dCreated" ColumnName="dCreated" />
@@ -285,6 +287,21 @@
           <ScalarProperty Name="Usage" ColumnName="Usage" />
           <ScalarProperty Name="Benefit" ColumnName="Benefit" />
           <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrArticleReports">
+      <EntityTypeMapping TypeName="PatuhModel.TrArticleReport">
+        <MappingFragment StoreEntitySet="TrArticleReports">
+          <ScalarProperty Name="dLastUpdated" ColumnName="dLastUpdated" />
+          <ScalarProperty Name="cLastUpdated" ColumnName="cLastUpdated" />
+          <ScalarProperty Name="dCreated" ColumnName="dCreated" />
+          <ScalarProperty Name="cCreated" ColumnName="cCreated" />
+          <ScalarProperty Name="cStatus" ColumnName="cStatus" />
+          <ScalarProperty Name="ReportDesc" ColumnName="ReportDesc" />
+          <ScalarProperty Name="ReportCategory" ColumnName="ReportCategory" />
+          <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
           <ScalarProperty Name="Id" ColumnName="Id" />
         </MappingFragment>
       </EntityTypeMapping>

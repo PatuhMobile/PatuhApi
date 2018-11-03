@@ -52,6 +52,7 @@
     </EntitySet>
     <EntitySet Name="MsUserRole" EntityType="PatuhModel.Store.MsUserRole" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="MsUserRoleAccess" EntityType="PatuhModel.Store.MsUserRoleAccess" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="TrArticleReports" EntityType="PatuhModel.Store.TrArticleReports" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TrArticles" EntityType="PatuhModel.Store.TrArticles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TrComments" EntityType="PatuhModel.Store.TrComments" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="TrImageAttachments" EntityType="PatuhModel.Store.TrImageAttachments" store:Type="Tables" Schema="dbo" />
@@ -63,6 +64,8 @@
       [TrUserCoupons].[UserID] AS [UserID], 
       [TrUserCoupons].[MsCouponId] AS [MsCouponId], 
       [TrUserCoupons].[CouponCode] AS [CouponCode], 
+      [TrUserCoupons].[IsRedeemed] AS [IsRedeemed], 
+      [TrUserCoupons].[RedeemDate] AS [RedeemDate], 
       [TrUserCoupons].[cStatus] AS [cStatus], 
       [TrUserCoupons].[cCreated] AS [cCreated], 
       [TrUserCoupons].[dCreated] AS [dCreated], 
@@ -278,6 +281,20 @@
     <Property Name="TsMod" Type="datetime" />
     <Property Name="ActiveFlag" Type="char" Nullable="false" MaxLength="1" />
   </EntityType>
+  <EntityType Name="TrArticleReports">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ArticleId" Type="bigint" />
+    <Property Name="ReportCategory" Type="varchar" MaxLength="10" />
+    <Property Name="ReportDesc" Type="varchar" MaxLength="250" />
+    <Property Name="cStatus" Type="varchar" MaxLength="1" />
+    <Property Name="cCreated" Type="varchar" MaxLength="20" />
+    <Property Name="dCreated" Type="datetime" />
+    <Property Name="cLastUpdated" Type="varchar" MaxLength="20" />
+    <Property Name="dLastUpdated" Type="datetime" />
+  </EntityType>
   <EntityType Name="TrArticles">
     <Key>
       <PropertyRef Name="Id" />
@@ -357,6 +374,8 @@
     <Property Name="UserID" Type="varchar" MaxLength="10" />
     <Property Name="MsCouponId" Type="bigint" />
     <Property Name="CouponCode" Type="varchar" MaxLength="100" />
+    <Property Name="IsRedeemed" Type="bit" />
+    <Property Name="RedeemDate" Type="datetime" />
     <Property Name="cStatus" Type="varchar" MaxLength="1" />
     <Property Name="cCreated" Type="varchar" MaxLength="20" />
     <Property Name="dCreated" Type="datetime" />
