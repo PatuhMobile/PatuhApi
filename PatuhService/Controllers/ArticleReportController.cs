@@ -67,9 +67,10 @@ namespace PatuhService.Controllers
             {
                 using (PatuhEntities db = new PatuhEntities())
                 {
-                    TrArticleReport articleReport = db.TrArticleReports.Where(x => x.ArticleId == trArticleReport.ArticleId && x.cCreated == trArticleReport.cCreated).FirstOrDefault();
+                    IList<TrArticleReport> articleReports = db.TrArticleReports.Where(x => x.ArticleId == trArticleReport.ArticleId && x.cCreated == trArticleReport.cCreated).ToList();
+                    TrArticleReport articleReport;
 
-                    if (articleReport == null)
+                    if (articleReports == null || articleReports.Count == 0)
                     {
                         articleReport = new TrArticleReport();
                         articleReport.ArticleId = trArticleReport.ArticleId;
@@ -79,6 +80,10 @@ namespace PatuhService.Controllers
                         articleReport.cCreated = trArticleReport.cCreated;
                         articleReport.dCreated = DateTime.Now;
                         db.TrArticleReports.AddObject(articleReport);
+                    }
+                    else
+                    {
+                        articleReport = articleReports.FirstOrDefault();
                     }
 
                     articleReport.cLastUpdated = trArticleReport.cLastUpdated;
