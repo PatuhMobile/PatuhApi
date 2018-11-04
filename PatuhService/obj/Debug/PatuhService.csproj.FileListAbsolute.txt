@@ -77,3 +77,4 @@ D:\SIDE JOB\PatuhMobile\PatuhApi\PatuhService\bin\System.Web.WebPages.Deployment
 D:\SIDE JOB\PatuhMobile\PatuhApi\PatuhService\bin\System.Web.WebPages.Razor.xml
 D:\SIDE JOB\PatuhMobile\PatuhApi\PatuhService\obj\Debug\PatuhService.dll
 D:\SIDE JOB\PatuhMobile\PatuhApi\PatuhService\obj\Debug\PatuhService.pdb
+D:\SIDE JOB\PatuhMobile\PatuhApi\PatuhService\obj\Debug\PatuhService.csprojResolveAssemblyReference.cache
