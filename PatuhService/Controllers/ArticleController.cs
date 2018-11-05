@@ -170,7 +170,7 @@ namespace PatuhService.Controllers
                     article.GPSLocation = location;
                     article.GPSLong = longitude;
                     article.GPSLat = latitude;
-                   
+                    article.cStatus = "Y";
                     article.cLastUpdated = userId;
                     article.dLastUpdated = DateTime.Now;
 
