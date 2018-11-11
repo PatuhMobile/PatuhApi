@@ -63,21 +63,7 @@
           <EntitySet Name="TrImageAttachments" EntityType="PatuhModel.Store.TrImageAttachments" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TrLikes" EntityType="PatuhModel.Store.TrLikes" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TrPoints" EntityType="PatuhModel.Store.TrPoints" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="TrUserCoupons" EntityType="PatuhModel.Store.TrUserCoupons" store:Type="Tables" store:Schema="dbo" store:Name="TrUserCoupons">
-            <DefiningQuery>SELECT 
-      [TrUserCoupons].[Id] AS [Id], 
-      [TrUserCoupons].[UserID] AS [UserID], 
-      [TrUserCoupons].[MsCouponId] AS [MsCouponId], 
-      [TrUserCoupons].[CouponCode] AS [CouponCode], 
-      [TrUserCoupons].[IsRedeemed] AS [IsRedeemed], 
-      [TrUserCoupons].[RedeemDate] AS [RedeemDate], 
-      [TrUserCoupons].[cStatus] AS [cStatus], 
-      [TrUserCoupons].[cCreated] AS [cCreated], 
-      [TrUserCoupons].[dCreated] AS [dCreated], 
-      [TrUserCoupons].[cLastUpdated] AS [cLastUpdated], 
-      [TrUserCoupons].[dLastUpdated] AS [dLastUpdated]
-      FROM [dbo].[TrUserCoupons] AS [TrUserCoupons]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="TrUserCoupons" EntityType="PatuhModel.Store.TrUserCoupons" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="UserActivityLog" EntityType="PatuhModel.Store.UserActivityLog" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Module_Menu[OneToMany]" Association="PatuhModel.Store.FK_Module_Menu[OneToMany]">
             <End Role="MsModule" EntitySet="MsModule" />
@@ -368,9 +354,6 @@
           <Property Name="cLastUpdated" Type="varchar" MaxLength="20" />
           <Property Name="dLastUpdated" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-      warning 6002: The table/view 'Patuh.dbo.TrUserCoupons' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
-      -->
         <EntityType Name="TrUserCoupons">
           <Key>
             <PropertyRef Name="Id" />
