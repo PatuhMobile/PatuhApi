@@ -255,6 +255,7 @@ namespace PatuhService.Controllers
                                 trPoint.dLastUpdated = DateTime.Now;
 
                                 db.TrPoints.AddObject(trPoint);
+
                                 db.SaveChanges();
                             }
                         }

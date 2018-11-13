@@ -143,8 +143,18 @@ namespace PatuhService.Controllers
             try
             {
                 using (PatuhEntities db = new PatuhEntities())
-                {
+                {                    
                     MsCoupon msCoupon = db.MsCoupons.Where(x => x.Id == id).FirstOrDefault();
+
+                    long totalPoint = db.TrPoints.Where(x => x.UserID == userId).Sum(x=> x.PointValue) ?? 0;
+
+                    if ((totalPoint - msCoupon.PointNeeded) < 0)
+                    {
+                        result.status = false;
+                        result.message = "User Points is not enough to claim the coupon";
+                        result.messageCode = "Error in claiming Coupon";
+                        return result;
+                    }
 
                     TrUserCoupon userCoupon = db.TrUserCoupons.Where(x => x.MsCouponId == id).FirstOrDefault();
 
@@ -156,6 +166,18 @@ namespace PatuhService.Controllers
                         userCoupon.cCreated = userId;
                         userCoupon.dCreated = DateTime.Now;
                         db.TrUserCoupons.AddObject(userCoupon);
+
+                        TrPoint trPoint = new TrPoint();
+                        trPoint.ArticleId = 0;
+                        trPoint.UserID = userId;
+                        trPoint.ActionCode = "CLAIM";
+                        trPoint.PointValue = (msCoupon.PointNeeded * -1);
+                        trPoint.cCreated = userId;
+                        trPoint.dCreated = DateTime.Now;
+                        trPoint.cLastUpdated = userId;
+                        trPoint.dLastUpdated = DateTime.Now;
+
+                        db.TrPoints.AddObject(trPoint);
                     }
                     
                     userCoupon.cStatus = "Y";
@@ -173,7 +195,9 @@ namespace PatuhService.Controllers
                                 userCoupon.c
                             }
                     */
-                    db.SaveChanges();                    
+                    db.SaveChanges();         
+           
+
                 }
             }
             catch (Exception e)
