@@ -20,6 +20,10 @@ namespace PatuhService.Controllers
         // GET api/values
         public IEnumerable<CouponViewModel> Get()
         {
+            CouponCode.CouponCodeBuilder couponBuilder = new CouponCode.CouponCodeBuilder();
+            CouponCode.Options opt = new CouponCode.Options();
+            string couponCode = couponBuilder.Generate(opt);
+
             IList<CouponViewModel> listCouponViewModel = new List<CouponViewModel>();
 
             using (PatuhEntities db = new PatuhEntities())
@@ -138,7 +142,7 @@ namespace PatuhService.Controllers
             var httpRequest = HttpContext.Current.Request;
             long id = string.IsNullOrEmpty(httpRequest["msCouponId"]) ? 0 : long.Parse(httpRequest["msCouponId"]);
             string userId = httpRequest["UserId"];
-
+            
 
             try
             {
@@ -160,9 +164,15 @@ namespace PatuhService.Controllers
 
                     if (userCoupon == null)
                     {
+
+                        CouponCode.CouponCodeBuilder couponBuilder = new CouponCode.CouponCodeBuilder();
+                        CouponCode.Options opt = new CouponCode.Options();
+                        string couponCode = couponBuilder.Generate(opt);
+
                         userCoupon = new TrUserCoupon();
                         userCoupon.MsCouponId = id;
                         userCoupon.UserID = userId;
+                        userCoupon.CouponCode = couponCode;
                         userCoupon.cCreated = userId;
                         userCoupon.dCreated = DateTime.Now;
                         db.TrUserCoupons.AddObject(userCoupon);
